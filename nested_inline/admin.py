@@ -22,9 +22,9 @@ csrf_protect_m = method_decorator(csrf_protect)
 class NestedModelAdmin(admin.ModelAdmin):
 
     class Media:
-        css = {
-            "all": ('admin/css/forms-nested.css',)
-        }
+#         css = {
+#             "all": ('admin/css/forms-nested.css',)
+#         }
         js = ('admin/js/inlines-nested%s.js' % ('' if settings.DEBUG else '.min'),)
 
     def get_inline_instances(self, request, obj=None):
@@ -32,11 +32,11 @@ class NestedModelAdmin(admin.ModelAdmin):
         for inline_class in self.inlines:
             inline = inline_class(self.model, self.admin_site)
             if request:
-                if not (inline.has_add_permission(request) or
+                if not (inline.has_add_permission(request, obj) or
                         inline.has_change_permission(request, obj) or
                         inline.has_delete_permission(request, obj)):
                     continue
-                if not inline.has_add_permission(request):
+                if not inline.has_add_permission(request, obj):
                     inline.max_num = 0
             inline_instances.append(inline)
 
@@ -151,7 +151,7 @@ class NestedModelAdmin(admin.ModelAdmin):
         model = self.model
         opts = model._meta
 
-        if not self.has_add_permission(request):
+        if not self.has_add_permission(request, obj):
             raise PermissionDenied
 
         ModelForm = self.get_form(request)
@@ -368,11 +368,11 @@ class NestedInline(InlineModelAdmin):
         for inline_class in self.inlines:
             inline = inline_class(self.model, self.admin_site)
             if request:
-                if not (inline.has_add_permission(request) or
+                if not (inline.has_add_permission(request, obj) or
                         inline.has_change_permission(request, obj) or
                         inline.has_delete_permission(request, obj)):
                     continue
-                if not inline.has_add_permission(request):
+                if not inline.has_add_permission(request, obj):
                     inline.max_num = 0
             inline_instances.append(inline)
         return inline_instances
