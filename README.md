@@ -3,19 +3,9 @@ django-nested-inline
 
 Nested inline support for Django admin
 
-Most of the code from this package is from [https://code.djangoproject.com/ticket/9025](https://code.djangoproject.com/ticket/9025)
+Forked from https://github.com/s-block/django-nested-inline
 
-Github
-------
-
-[https://github.com/s-block/django-nested-inline](https://github.com/s-block/django-nested-inline)
-
-
-Installation
-------------
-
-pip install django-nested-inline
-
+Works with Django 2.1
 
 Usage
 -----
@@ -76,16 +66,3 @@ admin.py
     admin.site.register(TopLevel, TopLevelAdmin)
 
 
-
-Changelist
-----------
-
-0.3.7 - added support for django 1.10, fix unique fieldset id
-
-0.3.6 - added support for django 1.9
-
-0.3.5 - Removed deprecated methods and updated for Django 1.8/1.9
-
-0.3.4 - added licence and updated for python 3
-
-0.3.3 - fixed bug where inlines without inlines would cause an error
